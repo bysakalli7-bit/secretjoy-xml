@@ -6,7 +6,7 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: read
+  contents: write
   pages: write
   id-token: write
 
@@ -29,6 +29,15 @@ jobs:
           python3 tegan.py
           echo '<meta charset="utf-8"><a href="fantezi.xml">fantezi.xml</a><br><a href="tegan.xml">tegan.xml</a>' > public/index.html
           ls -la public
+      - name: Veriyi data dalina kaydet
+        run: |
+          cd public
+          git init -q -b data
+          git config user.name "github-actions"
+          git config user.email "actions@github.com"
+          git add -A
+          git commit -qm "veri $(date -u +%F_%H%M)"
+          git push -qf "https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git" data
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:
