@@ -26,7 +26,8 @@ jobs:
         run: |
           mkdir -p public
           python3 filter.py
-          echo '<meta charset="utf-8"><a href="fantezi.xml">fantezi.xml</a>' > public/index.html
+          python3 tegan.py
+          echo '<meta charset="utf-8"><a href="fantezi.xml">fantezi.xml</a><br><a href="tegan.xml">tegan.xml</a>' > public/index.html
           ls -la public
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
